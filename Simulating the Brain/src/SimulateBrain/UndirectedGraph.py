@@ -46,3 +46,23 @@ class UndirectedGraph:
 			if i.value == 1:
 				nodes_on = nodes_on + 1
 		return nodes_on
+
+	def print_num_nodes_on(self):
+		print('Nodes on: ' + str(self.num_nodes_on()))
+		print()
+
+	def edges_ex_or_in(self):
+		edges_ex = 0
+		edges_in = 0
+		for i in self.edges:
+			if i.weight == 1:
+				edges_ex = edges_ex + 1
+			if i.weight == -1:
+				edges_in = edges_in + 1
+		return edges_ex, edges_in
+
+	def print_edges_ex_or_in(self):
+		e, i = self.edges_ex_or_in()
+		print('  Exciting edges: ' + str(e))
+		print('Inhibiting edges: ' + str(i))
+		print()

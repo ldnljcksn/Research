@@ -19,24 +19,11 @@ def rand_edge_weight():
 
 
 def main():
-	# a = Node('A', 0)
-	# b = Node('B', 1)
-	# c = Node('C', 0)
-	#
-	# ab = Edge(a, b, -1)
-	# bc = Edge(b, c, -1)
-	#
-	# g = UndirectedGraph()
-	# g.add_node(a), g.add_node(b), g.add_node(c)
-	# g.add_edge(ab), g.add_edge(bc)
-	#
-	# g.print_graph()
 
 	g = UndirectedGraph()
 
 	print('Please choose an action:')
 	print('(1) Build random graph of size n')
-	# print('(2) Manually build graph')
 	user_input = input()
 	if user_input == str(1):
 		graph_size = int(input('n = '))
@@ -47,26 +34,8 @@ def main():
 			for j in g.nodes:
 				new_edge = Edge(i, j, rand_edge_weight())
 				g.add_edge(new_edge)
-	# if user_input == str(2):
-	# 	finished = False
-	# 	while not finished:
-	# 		print('Please choose an action:')
-	# 		print('(1) Add a node')
-	# 		print('(2) Add an edge')
-	# 		user_input = input()
-	# 		if user_input == str(1):
-	# 			node_name = input('Node name: ')
-	# 			node_value = input('Node value: ')
-	# 			new_node = Node(node_name, int(node_value))
-	# 			g.add_node(new_node)
-	# 		if user_input == str(2):
-	# 			node1 = input('Node 1: ')
-	# 			node2 = input('Node 2: ')
-	# 			weight = input('Weight: ')
-	# 			node1 = g.nodes.
-	# 			new_edge = Edge(node1, node2, weight)
-	# 			g.add_edge(new_edge)
-
+		g.print_num_nodes_on()
+		# g.print_edges_ex_or_in()
 	finished = False
 	while not finished:
 		print('What would you like to do?')
@@ -77,8 +46,8 @@ def main():
 		user_input = input()
 		if user_input == str(1):
 			g.iterate_graph()
-			print('Number of nodes on: ' + str(g.num_nodes_on()))
-			print()
+			g.print_num_nodes_on()
+			# g.print_edges_ex_or_in()
 		if user_input == str(2):
 			g.print_nodes()
 		if user_input == str(3):
