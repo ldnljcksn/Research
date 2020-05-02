@@ -19,12 +19,16 @@ class UndirectedGraph:
 
 	def print_graph(self):
 		for i in self.nodes:
-			print(i.name + '(' + str(i.value) + '): ', end='')
+			print('{:>6}'.format(i.name + '(' + str(i.value) + '): '), end='')
 			for j in i.neighbor_to_weight.keys():
-				print(j.name + '(' + str(j.neighbor_to_weight.get(i)) + ') ', end='')
+				print('{:>6}'.format(j.name + '(' + str(j.neighbor_to_weight.get(i)) + ') '), end='')
 			print()
-
 		print('Done')
+
+	def print_nodes(self):
+		for i in self.nodes:
+			print('{:>6}'.format(i.name + '(' + str(i.value) + ') '), end='')
+		print()
 
 	def iterate_graph(self):
 		for i in self.nodes:
@@ -35,3 +39,10 @@ class UndirectedGraph:
 				if i.value == 1:
 					if i.neighbor_to_weight.get(j) == -1 and j.value == 0:
 						i.set_value(0)
+
+	def num_nodes_on(self):
+		nodes_on = 0
+		for i in self.nodes:
+			if i.value == 1:
+				nodes_on = nodes_on + 1
+		return nodes_on
