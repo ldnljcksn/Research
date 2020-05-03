@@ -2,18 +2,6 @@ from Node import Node
 from Edge import Edge
 from UndirectedGraph import UndirectedGraph
 import numpy as np
-import xlsxwriter
-# import collections
-
-
-def write_graph_to_xl(file_name: str, g: UndirectedGraph):
-	workbook = xlsxwriter.Workbook(file_name)
-	worksheet = workbook.add_worksheet()
-
-	row = 0
-	col = 0
-
-
 
 
 def rand_node_val():
@@ -28,7 +16,7 @@ def rand_edge_weight(in_prob=25, no_prob=50, ex_prob=25):
 	rand_num = np.random.randint(0, in_prob + no_prob + ex_prob)
 	if rand_num < in_prob:
 		return -1
-	if rand_num < no_prob:
+	elif rand_num < in_prob + no_prob:
 		return 0
 	else:
 		return 1
@@ -43,6 +31,8 @@ def main():
 	print('(2) Use standard graph')
 	print('(3) Build manual graph')
 	user_input = input()
+
+	# Build random graph of size n
 	if user_input == str(1):
 		graph_size = int(input('n = '))
 		for i in range(0, graph_size):
@@ -57,8 +47,8 @@ def main():
 				new_edge = Edge(i, j, edge_weight)
 				g.add_edge(new_edge)
 		g.print_num_nodes_on()
-	# g.print_edges_ex_or_in()
 
+	# Build pre-made graph
 	if user_input == str(2):
 		user_input = input('Please choose standard graph (1) exciting, (2) inhibiting, or (3) none:  ')
 		if user_input == str(1):
@@ -88,6 +78,7 @@ def main():
 		g.add_edge(ab), g.add_edge(bc)
 		g.print_num_nodes_on()
 
+	# Build manual graph
 	if user_input == str(3):
 		graph_size = int(input('n = '))
 		nodes_on = int(input('How many nodes on?  '))
@@ -117,19 +108,24 @@ def main():
 		print('(1) iterate graph once')
 		print('(2) print node list')
 		print('(3) print full graph')
-		print('(0) end')
+		print('(0) exit')
 		user_input = input()
+
+		# Iterate graph
 		if user_input == str(1):
-			# last_iteration_nodes = g.nodes
 			g.iterate_graph()
 			g.print_num_nodes_on()
-		# if collections.Counter(g.nodes) == collections.Counter(last_iteration_nodes):
-		# 	print('Same graph as before!')
-		# g.print_edges_ex_or_in()
+
+		# Print list of nodes and their value
 		if user_input == str(2):
+			g.nodes.sort(key=lambda x: int(x.name))
 			g.print_nodes()
+
+		# Print full graph
 		if user_input == str(3):
 			g.print_graph()
+
+		# Exit
 		if user_input == str(0):
 			finished = True
 

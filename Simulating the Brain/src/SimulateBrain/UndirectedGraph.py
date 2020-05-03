@@ -30,17 +30,6 @@ class UndirectedGraph:
 			print('{:>6}'.format(i.name + '(' + str(i.value) + ') '), end='')
 		print()
 
-	# def iterate_graph(self):
-	# 	"""For each node, it checks its neighbors and the edges between them to change the graph"""
-	# 	for i in self.nodes:
-	# 		for j in i.neighbor_to_weight.keys():
-	# 			if i.value == 0:
-	# 				if i.neighbor_to_weight.get(j) == 1 and j.value == 1:
-	# 					i.set_value(1)
-	# 			if i.value == 1:
-	# 				if i.neighbor_to_weight.get(j) == -1 and j.value == 0:
-	# 					i.set_value(0)
-
 	def iterate_graph(self):
 		"""For each node, check its neighbors and the edges between them to update the graph"""
 		for i in self.nodes:
@@ -53,7 +42,6 @@ class UndirectedGraph:
 			if total_influence < 0:
 				i.set_value(0)
 
-
 	def num_nodes_on(self):
 		nodes_on = 0
 		for i in self.nodes:
@@ -64,19 +52,3 @@ class UndirectedGraph:
 	def print_num_nodes_on(self):
 		print('Nodes on: ' + str(self.num_nodes_on()))
 		print()
-
-	# def edges_ex_or_in(self):
-	# 	edges_ex = 0
-	# 	edges_in = 0
-	# 	for i in self.edges:
-	# 		if i.weight == 1:
-	# 			edges_ex = edges_ex + 1
-	# 		if i.weight == -1:
-	# 			edges_in = edges_in + 1
-	# 	return edges_ex, edges_in
-	#
-	# def print_edges_ex_or_in(self):
-	# 	e, i = self.edges_ex_or_in()
-	# 	print('  Exciting edges: ' + str(e))
-	# 	print('Inhibiting edges: ' + str(i))
-	# 	print()
