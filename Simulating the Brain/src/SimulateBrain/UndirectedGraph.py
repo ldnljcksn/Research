@@ -19,6 +19,7 @@ class UndirectedGraph:
 			edge.node2.add_connection(edge.node1, edge.weight)
 
 	def print_graph(self):
+		"""Prints a visualization of the graph as an adjacency list"""
 		for i in self.nodes:
 			print('{:>6}'.format(i.name + '(' + str(i.value) + '): '), end='')
 			for j in i.neighbor_to_weight.keys():
@@ -27,6 +28,7 @@ class UndirectedGraph:
 		print('Done')
 
 	def print_nodes(self):
+		"""Prints the values of each node and copies this to the clipboard, for easier pasting to Excel"""
 		copy_val = ''
 		for i in self.nodes:
 			print(str(i.value))

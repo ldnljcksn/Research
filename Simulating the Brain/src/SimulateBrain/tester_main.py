@@ -14,7 +14,8 @@ def rand_node_val():
 def rand_edge_weight(in_prob=25, no_prob=50, ex_prob=25):
 	"""Returns a random edge weight of -1 (inhibiting), 0 (no edge), or 1 (exciting)
 
-	Precondition: in_prob + no_prob + ex_prob == 100"""
+	Precondition: in_prob + no_prob + ex_prob == 100
+	"""
 	rand_num = np.random.randint(0, in_prob + no_prob + ex_prob)
 	if rand_num < in_prob:
 		return -1
@@ -25,6 +26,7 @@ def rand_edge_weight(in_prob=25, no_prob=50, ex_prob=25):
 
 
 def write_to_xl(graph: UndirectedGraph):
+	"""Writes the data for the graph to an Excel worksheet named 'output.xlsx'"""
 	wb = xl.Workbook('output.xlsx')
 	new_sheet = wb.add_worksheet()
 	align_right = wb.add_format()
@@ -77,7 +79,7 @@ def main():
 				g.add_edge(new_edge)
 		g.print_num_nodes_on()
 
-	# Build pre-made graph
+	# Build pre-made graph, used to rudimentarily check if the iterate_graph function works correctly
 	if user_input == str(2):
 		user_input = input('Please choose standard graph (1) exciting, (2) inhibiting, or (3) none:  ')
 		if user_input == str(1):
@@ -107,7 +109,8 @@ def main():
 		g.add_edge(ab), g.add_edge(bc)
 		g.print_num_nodes_on()
 
-	# Build manual graph
+	# Build manual graph, allowing the user to choose the number of nodes that are on initially, as well as the % chance
+	# that an edge will be inhibiting, off, or exciting
 	if user_input == str(3):
 		graph_size = int(input('n = '))
 		nodes_on = int(input('How many nodes on?  '))
@@ -158,13 +161,17 @@ def main():
 		if user_input == str(4):
 			write_to_xl(g)
 
-		# Exit
+		# Exit and delete the output file, since xlsxwriter can't edit existing files
 		if user_input == str(0):
-			if os.path.exists("output.xlsx"):
-				os.remove("output.xlsx")
-			else:
-				print('Error deleting file')
-			finished = True
+			print('Before you exit, be sure to save the contents of output.xlsx in another file, ', end='')
+			print('as this action will delete output.xlsx.')
+			double_check = input('Are you sure you want to exit?  (y/n)  ')
+			if double_check == 'y':
+				if os.path.exists('output.xlsx'):
+					os.remove('output.xlsx')
+				else:
+					print('No file to delete.')
+				finished = True
 
 
 main()
