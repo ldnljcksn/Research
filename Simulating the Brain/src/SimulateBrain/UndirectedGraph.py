@@ -1,6 +1,7 @@
 from Node import Node
 from Edge import Edge
 from typing import List
+import pyperclip
 
 
 class UndirectedGraph:
@@ -26,8 +27,11 @@ class UndirectedGraph:
 		print('Done')
 
 	def print_nodes(self):
+		copy_val = ''
 		for i in self.nodes:
-			print('{:>6}'.format(i.name + '(' + str(i.value) + ') '), end='')
+			print(str(i.value))
+			copy_val = copy_val + str(i.value) + '\n'
+		pyperclip.copy(copy_val)
 		print()
 
 	def iterate_graph(self):

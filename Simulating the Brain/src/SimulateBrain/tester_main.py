@@ -2,6 +2,8 @@ from Node import Node
 from Edge import Edge
 from UndirectedGraph import UndirectedGraph
 import numpy as np
+import xlsxwriter as xl
+import os
 
 
 def rand_node_val():
@@ -20,6 +22,33 @@ def rand_edge_weight(in_prob=25, no_prob=50, ex_prob=25):
 		return 0
 	else:
 		return 1
+
+
+def write_to_xl(graph: UndirectedGraph):
+	wb = xl.Workbook('output.xlsx')
+	new_sheet = wb.add_worksheet()
+	align_right = wb.add_format()
+	align_right.set_align('right')
+	bold_text = wb.add_format()
+	bold_text.set_bold()
+
+	new_sheet.write('A1', 'Node #', bold_text)
+	new_sheet.write('B1', 'Init Status', bold_text)
+	for i, data in enumerate(graph.nodes):
+		new_sheet.write(i + 1, 0, data.name, align_right)
+		new_sheet.write(i + 1, 1, data.value, align_right)
+
+	new_sheet.write(len(graph.nodes) + 2, 0, 'Initial Graph', bold_text)
+	for i, data in enumerate(graph.nodes):
+		new_sheet.write(i + len(graph.nodes) + 4, 0, data.name, bold_text)
+	for i, data in enumerate(graph.nodes):
+		new_sheet.write(len(graph.nodes) + 3, i + 1, data.name, bold_text)
+
+	for i, data1 in enumerate(graph.nodes):
+		for j, data2 in enumerate(data1.neighbor_to_weight.keys()):
+			new_sheet.write(i + len(graph.nodes) + 4, j + 1, data2.neighbor_to_weight.get(data1))
+
+	wb.close()
 
 
 def main():
@@ -108,6 +137,7 @@ def main():
 		print('(1) iterate graph once')
 		print('(2) print node list')
 		print('(3) print full graph')
+		print('(4) write to excel')
 		print('(0) exit')
 		user_input = input()
 
@@ -116,7 +146,7 @@ def main():
 			g.iterate_graph()
 			g.print_num_nodes_on()
 
-		# Print list of nodes and their value
+		# Print list of node values
 		if user_input == str(2):
 			g.nodes.sort(key=lambda x: int(x.name))
 			g.print_nodes()
@@ -125,8 +155,15 @@ def main():
 		if user_input == str(3):
 			g.print_graph()
 
+		if user_input == str(4):
+			write_to_xl(g)
+
 		# Exit
 		if user_input == str(0):
+			if os.path.exists("output.xlsx"):
+				os.remove("output.xlsx")
+			else:
+				print('Error deleting file')
 			finished = True
 
 
